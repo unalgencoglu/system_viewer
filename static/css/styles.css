@@ -59,4 +59,24 @@ body {
     width: 100%;
     height: 100vh;
     background: radial-gradient(circle, #111827 0%, #0b0f19 100%);
+    padding: 15px;
+}
+
+.table {
+    display: flex;
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    transition: background .18s;
+    width: 100vh;
+    padding: 20px;
+}
+
+.table:hover {
+    background: var(--bg-card);
+}
+
+.table-row {
+    color: var(--text-primary);
+    display: flex;
+    justify-content: space-between;
 }
