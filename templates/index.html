@@ -12,7 +12,13 @@
         <div class="stat-card">
             <span class="card-label">Bellek (RAM)</span>
             <div class="card-value" id="ram-percent">%4.2</div>
-            <span class="card-sub">Toplam RAM: 65160MB</span>
+            <span class="card-sub">4.2 GB / 16.0 GB</span>
+        </div>
+
+        <div class="stat-card">
+            <span class="card-label">Grafik Birimi (GPU)</span>
+            <div class="card-value">Geforce RTX 4060</div>
+            <span class="card-sub">Aktif Sürücü / Donanım</span>
         </div>
     </div>
 
@@ -24,30 +30,112 @@
             <thead>
                 <tr>
                     <th>PID</th>
-                    <th>İsim / Süreç</th>
+                    <th>İSİM / SÜREÇ</th>
                     <th>CPU %</th>
                     <th>RAM %</th>
                 </tr>
             </thead>
             <tbody id="process-table-body">
                 <tr>
-                    <td>1042</td>
-                    <td><span class="examine">system_monitor</span></td>
-                    <td>%12.4</td>
-                    <td>%4.2</td>
-                </tr>
-                <tr>
                     <td>854</td>
-                    <td><span class="examine">python3</span></td>
+                    <td>
+                        <span class="process-name" onclick="openModal(854, 'python3')">python3</span>
+                    </td>
                     <td>%3.1</td>
                     <td>%1.8</td>
+                </tr>
+                <tr>
+                    <td>1042</td>
+                    <td>
+                        <span class="process-name" onclick="openModal(1042, 'firefox')">firefox</span>
+                    </td>
+                    <td>%12.4</td>
+                    <td>%4.2</td>
                 </tr>
             </tbody>
         </table>
     </div>
 
+    <!-- 3. Bölüm: Süreç Detay Modal Penceresi -->
+    <div class="modal-overlay" id="process-modal">
+        <div class="modal">
+            <!-- Modal Başlığı ve Kapatma Butonu -->
+            <div class="modal-header">
+                <div class="modal-title-group">
+                    <h2 id="modal-process-title">python3</h2>
+                    <span class="pid-tag" id="modal-process-pid">PID: 854</span>
+                </div>
+                <div class="modal-header-actions">
+                    <span class="badge running" id="modal-process-status">running</span>
+                    <button class="modal-close-btn" onclick="closeModal()">&times;</button>
+                </div>
+            </div>
 
-    <div class="modal">
-        
+            <!-- Temel Bilgiler (2 Kolonlu Bilgi Kutusu) -->
+            <div class="info-grid">
+                <div class="info-item full-width">
+                    <span class="info-label">Dosya Yolu</span>
+                    <span class="info-value" id="modal-exe">/usr/bin/python3</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Kullanıcı</span>
+                    <span class="info-value" id="modal-user">kali</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Öncelik Seviyesi (Nice)</span>
+                    <span class="info-value" id="modal-nice">0</span>
+                </div>
+                <div class="info-item full-width">
+                    <span class="info-label">Başlatma Süresi</span>
+                    <span class="info-value" id="modal-uptime">17 Ekim 2026, 14:22:10 (1 saat 15 dk aktif)</span>
+                </div>
+            </div>
+
+            <!-- Performans ve Bellek İstatistikleri (3'lü Mini Kartlar) -->
+            <div class="metrics-grid">
+                <div class="metric-box">
+                    <span class="metric-title">Threads</span>
+                    <span class="metric-num" id="modal-threads">34</span>
+                </div>
+                <div class="metric-box">
+                    <span class="metric-title">Fiziksel RAM (RSS)</span>
+                    <span class="metric-num" id="modal-rss">342.5 MB</span>
+                </div>
+                <div class="metric-box">
+                    <span class="metric-title">Sanal Bellek (VMS)</span>
+                    <span class="metric-num" id="modal-vms">1.8 GB</span>
+                </div>
+            </div>
+
+            <!-- Ağ ve Soket Bağlantıları Tablosu -->
+            <div class="connections-section">
+                <h4>Ağ Bağlantıları & Portlar</h4>
+                <table class="sub-table">
+                    <thead>
+                        <tr>
+                            <th>Protokol</th>
+                            <th>Yerel Adres</th>
+                            <th>Dış Adres</th>
+                            <th>Durum</th>
+                        </tr>
+                    </thead>
+                    <tbody id="modal-connections-body">
+                        <tr>
+                            <td>TCP</td>
+                            <td>127.0.0.1:5000</td>
+                            <td>0.0.0.0:*</td>
+                            <td><span class="status-listen">LISTEN</span></td>
+                        </tr>
+                        <tr>
+                            <td>TCP</td>
+                            <td>192.168.1.34:54322</td>
+                            <td>142.250.185.206:443</td>
+                            <td><span class="status-established">ESTABLISHED</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
+
 {% endblock %}

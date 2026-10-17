@@ -4,25 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistem Performans Monitörü</title>
-    <link rel="stylesheet" href="../static/css/styles.css">
+    <!-- Geist Fontu -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-    <header class="logo animated-table">
-        <a href="#"><h1>SİSTEM MONİTÖRÜ</h1></a>
-        <div class="header-nav">
+
+    <!-- Üst Başlık ve Navigasyon Çubuğu -->
+    <header class="logo">
+        <a href="/"><h1>SİSTEM MONİTÖRÜ</h1></a>
+        <nav class="header-nav">
             <ul>
                 <li><a href="#">Hakkında</a></li>
                 <li><a href="#">Ayarlar</a></li>
-                <li style="border: none;"><a href="#"><img src="">X</a></li>
+                <li class="close-btn"><a href="#">X</a></li>
             </ul>
-        </div>
+        </nav>
     </header>
-    
+
+    <!-- Ana İçerik Alanı -->
     <main class="main">
-        {% block content %}{% endblock %}
+        {% block content %}
+        {% endblock %}
     </main>
+
+    <!-- JavaScript Dosyası -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
