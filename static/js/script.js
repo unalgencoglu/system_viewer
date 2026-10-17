@@ -1,9 +1,25 @@
-function openModal(pid, name) {
-    const modalOverlay = document.getElementById('process-modal');
+const modalOverlay = document.getElementById('process-modal');
+
+function openModal() {
     modalOverlay.classList.add('active');
 }
 
 function closeModal() {
-    const modalOverlay = document.getElementById('process-modal');
     modalOverlay.classList.remove('active');
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    if(modalOverlay) {
+        modalOverlay.addEventListener('click', (event) => {
+            if (event.target === modalOverlay) {
+                closeModal();
+            }
+        });
+    }
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            closeModal();
+        }
+    });
+});
