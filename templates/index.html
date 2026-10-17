@@ -2,38 +2,52 @@
 
 {% block content %}
 
-    <table class="table animated-table">
-        <thead>
-            <tr class="table-row">
-                <th>CPU</th>
-                <th>RAM</th>
-                <th>PID</th>
-            </tr>
-        </thead>
-        <tbody id="process-table-body">
-            <tr class="table-row">
-                <td>%12.4</td>
-                <td>%4.2</td>
-                <td>1042</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <span class="card-label">İşlemci (CPU)</span>
+            <div class="card-value" id="cpu-percent">%12.4</div>
+            <span class="card-sub">Intel I7 12600H</span>
+        </div>
 
-    <table class="table animated-table">
-        <thead>
-            <tr class="table-row">
-                <th>işlemci modeli</th>
-                <th>ekran kartı modeli</th>
-                <th>processler</th>
-            </tr>
-        </thead>
-        <tbody id="process-table-body">
-            <tr class="table-row">
-                <td>Intel I7 12600H</td>
-                <td>Geforce RTX 4060</td>
-                <td><a href="#">tıkla</a></td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="stat-card">
+            <span class="card-label">Bellek (RAM)</span>
+            <div class="card-value" id="ram-percent">%4.2</div>
+            <span class="card-sub">Toplam RAM: 65160MB</span>
+        </div>
+    </div>
 
+    <div class="table-container">
+        <div class="table-header">
+            <h3>Çalışan Süreçler (Processes)</h3>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>PID</th>
+                    <th>İsim / Süreç</th>
+                    <th>CPU %</th>
+                    <th>RAM %</th>
+                </tr>
+            </thead>
+            <tbody id="process-table-body">
+                <tr>
+                    <td>1042</td>
+                    <td><span class="examine">system_monitor</span></td>
+                    <td>%12.4</td>
+                    <td>%4.2</td>
+                </tr>
+                <tr>
+                    <td>854</td>
+                    <td><span class="examine">python3</span></td>
+                    <td>%3.1</td>
+                    <td>%1.8</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="modal">
+        
+    </div>
 {% endblock %}

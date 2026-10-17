@@ -21,7 +21,7 @@ body {
 }
 
 .logo {
-    background: var(--bg-main);
+    background: var(--bg-card);
     color: var(--text-primary);
     
     display: flex;
@@ -31,7 +31,7 @@ body {
     margin: 5px 10px 0 10px;
     border: 1.5px solid var(--border-color);
     border-radius: 15px;
-    height: 24px;
+    height: 66px;
     padding: 0 15px;
 
     cursor:default;
@@ -39,7 +39,7 @@ body {
 }
 
 .logo:hover {
-    border-color: #36028a;
+    border-color: rgba(99, 102, 241, 0.5);
     background: radial-gradient(circle, #151d2e 0%, #0e131f 100%)
 }
 
@@ -52,78 +52,127 @@ body {
 .header-nav li { border-bottom: 1px solid var(--border-color); padding-bottom: 7px; margin-top: 7px; transition: border-color .18s; }
 .header-nav li:hover { cursor: pointer; border-color: var(--accent-ram);}
 
-.animated-table {
-    position: relative;
-    overflow: hidden; 
-    background-color: var(--bg-main); 
-    border: 1px solid var(--border-color);
-    border-radius: 20px;
-    padding: 24px;
-    z-index: 1; 
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.animated-table::before {
-    content: "";
-    position: absolute;
-    inset: 0; 
-    background: radial-gradient(
-        circle at 100% 100%, 
-        rgba(51, 52, 128, 0.28) 0%,   
-        rgba(30, 27, 75, 0.15) 40%,    
-        transparent 75%                 
-    );
-    opacity: 0;                         
-    transition: opacity 0.4s ease;       
-    z-index: -1;                        
-    pointer-events: none;
-
-    transition: background .24s ease-out;
-}
-
-.animated-table:hover::before {
-    opacity: 1;
-}
-
-.animated-table:hover {
-    border-color: rgba(99, 102, 241, 0.4); /* Kenarlık da hafif mor parlar */
-    box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.2); /* Dışa vuran hafif ışıma */
-}
-
 .main {
     display: flex;
     flex-direction: column;
-    gap: 40px;
-
+    gap: 25px;
     min-height: 100vh;
     background: radial-gradient(circle, #111827 0%, #0b0f19 100%);
-    padding: 15px;
-}
-
-.table {
-    border: 1px solid var(--border-color);
-    border-radius: 15px;
-    text-align: left;
-    transition: background .18s;
-    width: 100%;
     padding: 20px;
 }
 
-.table:hover { background: var(--bg-card); border-color: #36028a;}
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 15px;
+    width: 100%;
+}
 
-.table-row {
-    color: var(--text-primary);
+.stat-card {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 20px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 1;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    cursor: default;
 }
 
-.table-row th {
-    padding: 12px 16px;
+/* Sağ alttan açılan mor ışıma katmanı */
+.stat-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle at 100% 100%, 
+        rgba(99, 102, 241, 0.25) 0%,   
+        rgba(30, 27, 75, 0.12) 40%,    
+        transparent 75%                 
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.stat-card:hover::before {
+    opacity: 1;
+}
+
+.stat-card:hover {
+    border-color: rgba(99, 102, 241, 0.5);
+    box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.2);
+}
+
+.card-label {
+    font-size: 12px;
     font-weight: 700;
+    color: var(--text-secondary);
     text-transform: uppercase;
-    letter-spacing: .5px;
-    border-bottom: var(--border-color);
+    letter-spacing: 0.5px;
 }
 
-tbody td { color: var(--text-secondary); padding: 12px 16px; }
-td a { text-decoration: none; color: var(--accent-ram); }
+.card-value {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.card-sub {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+/* --- Süreç Tablosu Alanı --- */
+.table-container {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 20px;
+    width: 100%;
+}
+
+.table-header h3 {
+    color: var(--text-primary);
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    text-align: left;
+}
+
+.table th {
+    padding: 12px 14px;
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-color);
+    text-transform: uppercase;
+    cursor: default;
+}
+
+.table td {
+    padding: 12px 14px;
+    color: var(--text-primary);
+    font-size: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    cursor: default;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.examine:hover {
+    text-decoration: underline var(--accent-ram);
+    cursor: pointer;
+}
