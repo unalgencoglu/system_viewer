@@ -68,7 +68,6 @@ body {
     color: var(--text-primary);
 }
 
-/* --- Ana Kapsayıcı (Main) --- */
 .main {
     display: flex;
     flex-direction: column;
@@ -78,12 +77,12 @@ body {
     padding: 20px 15px;
 }
 
-/* --- 1. Bölüm: Metrik Kartları & Sağ Alttan Glow Efekti --- */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 15px;
     width: 100%;
+    cursor: default;
 }
 
 .stat-card {
@@ -100,7 +99,6 @@ body {
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Sağ alttan açılan mor ışıma katmanı */
 .stat-card::before {
     content: "";
     position: absolute;
@@ -145,7 +143,6 @@ body {
     color: var(--text-secondary);
 }
 
-/* --- 2. Bölüm: Süreç Tablosu --- */
 .table-container {
     background-color: var(--bg-card);
     border: 1px solid var(--border-color);
@@ -200,7 +197,6 @@ body {
     text-decoration: underline;
 }
 
-/* --- 3. Bölüm: Modal Pencere ve Backdrop --- */
 .modal-overlay {
     position: fixed;
     inset: 0;
@@ -308,7 +304,6 @@ body {
     color: var(--text-primary);
 }
 
-/* Modal İçi Bilgi Grid */
 .info-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -344,7 +339,6 @@ body {
     word-break: break-all;
 }
 
-/* Modal İçi Metrik Kutucukları */
 .metrics-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -375,7 +369,6 @@ body {
     font-variant-numeric: tabular-nums;
 }
 
-/* Modal İçi Ağ Tablosu */
 .connections-section h4 {
     font-size: 13px;
     color: var(--text-secondary);
