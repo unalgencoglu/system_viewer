@@ -1,6 +1,15 @@
 const modalOverlay = document.getElementById('process-modal');
+const titleElement = document.getElementById('modal-process-title');
+const pidElement = document.getElementById('modal-process-pid');
 
-function openModal() {
+function openModal(pid, name) {
+    if (titleElement) {
+        titleElement.textContent = name;
+    }
+    if (pidElement) {
+        pidElement.textContent = 'PID: ' + pid;
+    }
+
     modalOverlay.classList.add('active');
 }
 
