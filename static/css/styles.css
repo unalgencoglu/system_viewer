@@ -18,11 +18,21 @@
     --status-danger: #ef4444;
 }
 
+body.light-theme {
+    --bg-main: #f8fafc;        
+    --bg-card: #ffffff;        
+    --border-color: #e2e8f0;   
+    --text-primary: #0f172a;   
+    --text-secondary: #64748b; 
+    --accent-cpu: #0284c7;     
+    --accent-ram: #7c3aed;     
+}
+
 body {
     background-color: var(--bg-main);
 }
 
-/* --- Üst Logo ve Navbar --- */
+/* -----------------BASE----------------- */
 .logo {
     background: var(--bg-main);
     color: var(--text-primary);
@@ -67,6 +77,8 @@ body {
 .header-nav li:hover a {
     color: var(--text-primary);
 }
+
+/* -----------------INDEX----------------- */
 
 .main {
     display: flex;
@@ -184,7 +196,6 @@ body {
     background-color: rgba(255, 255, 255, 0.02);
 }
 
-/* Sadece metne gelince tıklanabilir (pointer) yapma */
 .process-name {
     cursor: pointer;
     color: var(--text-primary);
@@ -196,6 +207,8 @@ body {
     color: var(--accent-ram);
     text-decoration: underline;
 }
+
+/* -----------------MODAL----------------- */
 
 .modal-overlay {
     position: fixed;
@@ -415,4 +428,70 @@ body {
 .status-established {
     color: #4ade80;
     font-weight: 600;
+}
+
+/* -----------------SETTINGS----------------- */
+
+.settings-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.settings-list-items {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px;
+    padding: 8px 8px;
+}
+
+.settings-list-items:hover {
+    background-color: #111827;
+}
+
+.settings-list dt, dd { color: var(--text-secondary); }
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 18px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #1f2937;
+  transition: 0.25s ease;
+  border-radius: 18px;
+}
+
+.slider::before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 2px;
+  bottom: 2px;
+  background-color: #a955f7;
+  transition: 0.25s ease;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.switch input:checked + .slider {
+  background-color: #f3f4f6;
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(18px);
 }

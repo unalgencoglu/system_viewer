@@ -6,5 +6,9 @@ app = Flask(__name__)
 def anasayfa():
     return render_template('index.html')
 
+@app.route("/ayarlar")
+def ayarlar():
+    return render_template('ayarlar.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
