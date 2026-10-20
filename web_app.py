@@ -18,10 +18,22 @@ def get_os_info():
             ad = "Linux"
         return f"{ad} · {platform.release()}"      
     if sistem == "Windows":
-        return f"Windows {platform.release()} ({platform.version()})"
+        build = int(platform.version().split(".")[2])
+        surum = "11" if build >= 22000 else platform.release()
+        return f"Windows {surum} (build {build})"
     return f"{sistem} {platform.release()}"
 
 def get_cpu_model():
+    if platform.system() == "Windows":
+        try:
+            import winreg
+            key = winreg.OpenKey(
+                winreg.HKEY_LOCAL_MACHİNE,
+                r"HARDWARE\DESCRIPTION\System\CentralProcessor\0"
+            )
+            return winreg.QueryValueEx(key, "ProcessorNameString")[0].strip()
+        except Exception:
+            return platform.processor() or "Bilinmeyen İşlemci"
     try:
         with open("/proc/cpuinfo", "r") as f:
             for line in f:
