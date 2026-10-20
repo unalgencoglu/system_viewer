@@ -103,6 +103,11 @@ body {
     gap: 20px;
 }
 
+.header-nav li {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
 .header-nav li a {
     font-size: 13px;
     color: var(--text-secondary);

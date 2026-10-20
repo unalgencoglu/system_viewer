@@ -16,7 +16,7 @@ async function updateSystemStats() {
             percentEl.textContent = "%" + data.cpu.percent;
         }
         if (modelEl) {
-            const modelText = (data.cpu.model || "İşlemci") + (data.cpu.cores ? " (" + data.cores + " Çekirdek)" : "");
+            const modelText = (data.cpu.model || "İşlemci") + (data.cpu.cores ? " (" + data.cpu.cores + " Çekirdek)" : "");
             modelEl.textContent = modelText;
         }
 
@@ -34,10 +34,27 @@ async function updateSystemStats() {
     }   
 }
 
+async function updateSystemInfo() {
+    try {
+        const response = await fetch('/api/system');
+        const data = await response.json();
+        
+        const osEl = document.getElementById('version');
+
+        if (osEl) {
+            osEl.textContent = data.os + " · çalışma süresi " + data.uptime;
+        }
+    } catch (error) {
+        console.error("Sistem bilgisi alınamadı:", error);
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     updateSystemStats();
+    updateSystemInfo();
     setInterval(updateSystemStats, 2000);
-})
+    setInterval(updateSystemInfo, 60000);
+});
 
 function openModal(pid, name,) {
     if (titleElement) {

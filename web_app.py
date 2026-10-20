@@ -1,7 +1,25 @@
 from flask import Flask, render_template, jsonify
-import psutil
+import platform
+import psutil, time
 
 app = Flask(__name__)
+
+def uptime_str():
+    saniye = int(time.time() - psutil.boot_time())
+    return f"{saniye // 3600}s {saniye % 3600 // 60}dk"
+
+def get_os_info():
+    sistem = platform.system()  
+    if sistem == "Linux":
+        try:
+            r = platform.freedesktop_os_release()  
+            ad = r.get("PRETTY_NAME", "Linux")     
+        except OSError:
+            ad = "Linux"
+        return f"{ad} · {platform.release()}"      
+    if sistem == "Windows":
+        return f"Windows {platform.release()} ({platform.version()})"
+    return f"{sistem} {platform.release()}"
 
 def get_cpu_model():
     try:
@@ -12,6 +30,16 @@ def get_cpu_model():
     except Exception:
         pass
     return "Bilinmeyen İşlemci"
+
+@app.route("/api/system")
+def api_system():
+    os_info = get_os_info()
+    uptime = uptime_str()
+
+    return jsonify({
+        "os": os_info, 
+        "uptime": uptime
+    })
 
 @app.route("/api/stats")
 def  api_cpu():

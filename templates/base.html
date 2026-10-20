@@ -11,15 +11,13 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-
-    <!-- Üst Başlık ve Navigasyon Çubuğu -->
     <header class="logo">
         <a href="/"><h1>SİSTEM MONİTÖRÜ</h1></a>
         <nav class="header-nav">
             <ul>
+                <li id="version"></li>
                 <li><a href="#">Hakkında</a></li>
                 <li><a href="{{ url_for('ayarlar') }}">Ayarlar</a></li>
-                <li class="close-btn"><a href="#">X</a></li>
             </ul>
         </nav>
     </header>
