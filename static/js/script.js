@@ -4,6 +4,32 @@ const pidElement = document.getElementById('modal-process-pid');
 const procName = document.getElementById('modal-exe');
 const themeBtn = document.getElementById('theme-toggle');
 
+async function updateCpuStats() {
+    try {
+        const response = await fetch('/api/cpu');
+        const data = await response.json();
+
+        const percentEl = document.getElementById('cpu-percent');
+        const modelEl = document.getElementById('cpu-model');
+
+        if (percentEl) {
+            percentEl.textContent = "%" + data.percent;
+        }
+        if (modelEl) {
+            const modelText = (data.model || "İşlemci") + (data.cores ? " (" + data.cores + " Çekirdek)" : "");
+            modelEl.textContent = modelText;
+        }
+    } catch (error) {
+        console.error("CPU verisi çekilirken hata oluştu:", error);
+    }
+    
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    updateCpuStats();
+    setInterval(updateCpuStats, 3000);
+})
+
 function openModal(pid, name,) {
     if (titleElement) {
         titleElement.textContent = name;
