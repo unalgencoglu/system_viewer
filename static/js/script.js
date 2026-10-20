@@ -4,30 +4,39 @@ const pidElement = document.getElementById('modal-process-pid');
 const procName = document.getElementById('modal-exe');
 const themeBtn = document.getElementById('theme-toggle');
 
-async function updateCpuStats() {
+async function updateSystemStats() {
     try {
-        const response = await fetch('/api/cpu');
+        const response = await fetch('/api/stats');
         const data = await response.json();
 
         const percentEl = document.getElementById('cpu-percent');
         const modelEl = document.getElementById('cpu-model');
 
         if (percentEl) {
-            percentEl.textContent = "%" + data.percent;
+            percentEl.textContent = "%" + data.cpu.percent;
         }
         if (modelEl) {
-            const modelText = (data.model || "İşlemci") + (data.cores ? " (" + data.cores + " Çekirdek)" : "");
+            const modelText = (data.cpu.model || "İşlemci") + (data.cpu.cores ? " (" + data.cores + " Çekirdek)" : "");
             modelEl.textContent = modelText;
         }
+
+        const ramPercentEL = document.getElementById('ram-percent');
+        const ramUsageEl = document.getElementById('ram-usage');
+
+        if (ramPercentEL) {
+            ramPercentEL.textContent = "%" + data.ram.percent;
+        }
+        if (ramUsageEl) {
+            ramUsageEl.textContent = data.ram.used_gb + " GB / " + data.ram.total_gb + "GB";
+        }
     } catch (error) {
-        console.error("CPU verisi çekilirken hata oluştu:", error);
-    }
-    
+        console.error("Sistem metrikleri alınırken hata oluştu:", error);
+    }   
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    updateCpuStats();
-    setInterval(updateCpuStats, 3000);
+    updateSystemStats();
+    setInterval(updateSystemStats, 2000);
 })
 
 function openModal(pid, name,) {

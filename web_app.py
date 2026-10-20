@@ -13,16 +13,28 @@ def get_cpu_model():
         pass
     return "Bilinmeyen İşlemci"
 
-@app.route("/api/cpu")
+@app.route("/api/stats")
 def  api_cpu():
-    cpu_usage = psutil.cpu_percent(interval=0.5)
+    cpu_usage = psutil.cpu_percent(interval=None)
     cpu_model = get_cpu_model()
     core_count = psutil.cpu_count(logical=True)
 
+    mem = psutil.virtual_memory()
+    total_gb = round(mem.total / (1024 ** 3), 2)
+    used_gb = round(mem.used / (1024 ** 3), 2)
+    ram_percent = mem.percent
+
     return jsonify({
-        "percent": cpu_usage,
-        "model": cpu_model,
-        "cores": core_count
+        "cpu": {
+            "percent": cpu_usage,
+            "model": cpu_model,
+            "cores": core_count
+        },
+        "ram": {
+            "percent": ram_percent,
+            "used_gb": used_gb,
+            "total_gb": total_gb
+        }
     })
 
 @app.route("/")
