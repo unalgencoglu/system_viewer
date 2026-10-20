@@ -50,3 +50,16 @@ psutil.process_iter(['pid', 'name', 'cpu_percent' ...])
 [:5] -> 5 tanesini döner
 ------------------
 -------------
+
+## API'de neler oluyor (CPU)
+
+# Python tarafında:
+Linux'ta /proc/cpuinfo dosyasını okuyarak model adını alır
+jsonify ile alınan verileri tarayıcıya gönderir
+
+# Javascript tarafında: 
+Python'da yazmış olduğumuz adrese istek atar ve gelen JSON'u okur
+textContent ile de gelen veriyi arayüze yazar
+
+const response = await fetch('/api/cpu');
+const data = await response.json();
