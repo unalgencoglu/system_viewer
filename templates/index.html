@@ -3,17 +3,24 @@
 {% block content %}
 
     <div class="stats-grid">
-        <div class="stat-card">
+        <div class="stat-card" id="cpu-card">
             <span class="card-label">İşlemci (CPU)</span>
             <div class="card-value" id="cpu-percent">%--</div>
             <span class="card-sub" id="cpu-model">Yükleniyor...</span>
+            <svg viewBox="0 0 300 60" preserveAspectRatio="none" class="graph">
+                <polyline id="cpu-line" fill="none" stroke="#38bdf8" stroke-width="2" vector-effect="non-scaling-stroke"/>
+            </svg>
         </div>
 
-        <div class="stat-card">
+        <div class="stat-card" id="ram-card">
             <span class="card-label">Bellek (RAM)</span>
             <div class="card-value" id="ram-percent">%--</div>
             <span class="card-sub" id="ram-usage">Yükleniyor...</span>
+            <svg viewBox="0 0 300 60" preserveAspectRatio="none" class="graph">
+                <polyline id="cpu-line" fill="none" stroke="#a955f7" stroke-width="2" vector-effect="non-scaling-stroke"/>
+            </svg>
         </div>
+        <div class="core-panel" id="core-panel"></div>
     </div>
 
     <div class="table-container">

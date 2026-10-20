@@ -106,6 +106,7 @@ body {
 .header-nav li {
     font-size: 13px;
     color: var(--text-secondary);
+    cursor: default;
 }
 
 .header-nav li a {
@@ -530,3 +531,12 @@ body {
 .switch input:checked + .slider::before {
   transform: translateX(18px);
 }
+
+.graph { width: 100%; height: 60px; margin-top: 14px; }
+#cpu-card { cursor: pointer; }
+
+.core-panel { display: none; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px 28px; margin-top: 20px; color: var(--text-primary); }
+.core-panel.open { display: grid; }
+.core-head { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px; }
+.core-bar { height: 6px; background: var(--border-color); border-radius: 3px; }
+.core-fill { height: 6px; background: var(--accent-cpu); border-radius: 3px; }

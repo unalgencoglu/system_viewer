@@ -46,6 +46,7 @@ def  api_cpu():
     cpu_usage = psutil.cpu_percent(interval=None)
     cpu_model = get_cpu_model()
     core_count = psutil.cpu_count(logical=True)
+    per_core = psutil.cpu_percent(interval=None, percpu=True)
 
     mem = psutil.virtual_memory()
     total_gb = round(mem.total / (1024 ** 3), 2)
@@ -56,7 +57,8 @@ def  api_cpu():
         "cpu": {
             "percent": cpu_usage,
             "model": cpu_model,
-            "cores": core_count
+            "cores": core_count,
+            "per_core": per_core
         },
         "ram": {
             "percent": ram_percent,

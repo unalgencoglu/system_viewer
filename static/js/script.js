@@ -3,6 +3,25 @@ const titleElement = document.getElementById('modal-process-title');
 const pidElement = document.getElementById('modal-process-pid');
 const procName = document.getElementById('modal-exe');
 const themeBtn = document.getElementById('theme-toggle');
+const cpuCard = document.getElementById('cpu-card');
+const corePanel = document.getElementById('core-panel');
+const cpuHistory = [];
+const ramHistory = [];
+const MAX_POINTS = 30;
+
+function drawGraph(lineEl, history) {
+    if (!lineEl) return;
+    const step = 300 / (MAX_POINTS - 1);
+    const offset = (MAX_POINTS - history.length) * step;
+    const points = history
+        .map((v, i) => `${offset + i * step},${60 - v * 0.6}`)
+        .join(' ');
+    lineEl.setAttribute('points', points);
+}
+
+if (cpuCard && corePanel) {
+    cpuCard.addEventListener('click', () => corePanel.classList.toggle('open'));
+}
 
 async function updateSystemStats() {
     try {
@@ -29,6 +48,21 @@ async function updateSystemStats() {
         if (ramUsageEl) {
             ramUsageEl.textContent = data.ram.used_gb + " GB / " + data.ram.total_gb + "GB";
         }
+        cpuHistory.push(data.cpu.percent);
+        if (cpuHistory.length > MAX_POINTS) cpuHistory.shift();
+        drawGraph(document.getElementById('cpu-line'), cpuHistory);
+
+        ramHistory.push(data.ram.percent);
+        if (ramHistory.length > MAX_POINTS) ramHistory.shift();
+        drawGraph(document.getElementById('ram-line'), ramHistory);
+
+        if (corePanel) {
+            corePanel.innerHTML = data.cpu.per_core.map((p, i) => `
+                <div>
+                    <div class="core-head"><span>CPU ${i}</span><span>%${p}</span></div>
+                    <div class="core-bar"><div class="core-fill" style="width:${p}%"></div></div>
+                </div>`).join('');
+}
     } catch (error) {
         console.error("Sistem metrikleri alınırken hata oluştu:", error);
     }   
