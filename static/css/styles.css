@@ -16,6 +16,25 @@
     --accent-cpu: #38bdf8;
     --accent-ram: #a955f7;
     --status-danger: #ef4444;
+
+    /* spesifik renkler */
+
+    --purple-border: #36028a;
+    --logo-hover: radial-gradient(circle, #151d2e 0%, #0e131f 100%);
+    --main-bg: radial-gradient(circle, #111827 0%, #0b0f19 100%);
+    --stat-card-bg: radial-gradient(
+        circle at 100% 100%, 
+        rgba(99, 102, 241, 0.28) 0%,   
+        rgba(30, 27, 75, 0.12) 40%,    
+        transparent 75%                 
+    );
+    --stat-card-border: rgba(99, 102, 241, 0.5);
+    --stat-card-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.2);
+    --modal-bg: rgba(11, 15, 25, 0.75);
+    --modal-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 25px rgba(99, 102, 241, 0.15);
+    --pid-bg: rgba(255, 255, 255, 0.05);
+    --info-bg: rgba(255, 255, 255, 0.02);
+    --settings-hover: #111827;
 }
 
 body.light-theme {
@@ -25,7 +44,23 @@ body.light-theme {
     --text-primary: #0f172a;   
     --text-secondary: #64748b; 
     --accent-cpu: #0284c7;     
-    --accent-ram: #7c3aed;     
+    --accent-ram: #7c3aed;  
+    --purple-border: #9a60f8;  
+    --logo-hover: radial-gradient(circle, #faf5ff 0%, #f1f5f9 100%); 
+    --main-bg: radial-gradient(circle, #ffffff 0%, #f1f5f9 100%);
+    --stat-card-bg: radial-gradient(
+        circle at 100% 100%, 
+        rgba(124, 58, 237, 0.14) 0%,   
+        rgba(241, 245, 249, 0.5) 40%,   
+        transparent 75%
+    );
+    --stat-card-border: rgba(124, 58, 237, 0.35);
+    --stat-card-shadow: 0 10px 25px -5px rgba(124, 58, 237, 0.12);
+    --modal-bg: rgba(15, 23, 42, 0.45);
+    --modal-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.15), 0 0 25px rgba(124, 58, 237, 0.12);
+    --pid-bg: rgba(15, 23, 42, 0.05);
+    --info-bg: rgba(15, 23, 42, 0.02);
+    --settings-hover: #ffffff;
 }
 
 body {
@@ -48,8 +83,8 @@ body {
 }
 
 .logo:hover {
-    border-color: #36028a;
-    background: radial-gradient(circle, #151d2e 0%, #0e131f 100%);
+    border-color: var(--purple-border);
+    background: var(--logo-hover);
 }
 
 .logo h1 {
@@ -85,7 +120,7 @@ body {
     flex-direction: column;
     gap: 25px;
     min-height: calc(100vh - 70px);
-    background: radial-gradient(circle, #111827 0%, #0b0f19 100%);
+    background: var(--main-bg);
     padding: 20px 15px;
 }
 
@@ -115,12 +150,7 @@ body {
     content: "";
     position: absolute;
     inset: 0;
-    background: radial-gradient(
-        circle at 100% 100%, 
-        rgba(99, 102, 241, 0.28) 0%,   
-        rgba(30, 27, 75, 0.12) 40%,    
-        transparent 75%                 
-    );
+    background: var(--stat-card-bg);
     opacity: 0;
     transition: opacity 0.4s ease;
     z-index: -1;
@@ -132,8 +162,8 @@ body {
 }
 
 .stat-card:hover {
-    border-color: rgba(99, 102, 241, 0.5);
-    box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.2);
+    border-color: var(--stat-card-border);
+    box-shadow: var(--stat-card-shadow);
 }
 
 .card-label {
@@ -213,7 +243,7 @@ body {
 .modal-overlay {
     position: fixed;
     inset: 0;
-    background-color: rgba(11, 15, 25, 0.75);
+    background-color: var(--modal-bg);
     backdrop-filter: blur(8px);
     display: flex;
     justify-content: center;
@@ -242,7 +272,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 25px rgba(99, 102, 241, 0.15);
+    box-shadow: var(--modal-shadow);
     transform: scale(0.95);
     transition: transform 0.25s ease-out;
 }
@@ -273,7 +303,7 @@ body {
 }
 
 .pid-tag {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--pid-bg);
     border: 1px solid var(--border-color);
     color: var(--text-secondary);
     padding: 3px 8px;
@@ -321,7 +351,7 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 12px;
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--info-bg);
     border: 1px solid var(--border-color);
     padding: 14px;
     border-radius: 12px;
@@ -359,7 +389,7 @@ body {
 }
 
 .metric-box {
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--info-bg);
     border: 1px solid var(--border-color);
     border-radius: 10px;
     padding: 12px;
@@ -445,7 +475,7 @@ body {
 }
 
 .settings-list-items:hover {
-    background-color: #111827;
+    background-color: var(--settings-hover);
 }
 
 .settings-list dt, dd { color: var(--text-secondary); }
