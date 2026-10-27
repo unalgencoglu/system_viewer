@@ -68,6 +68,7 @@ body {
 }
 
 /* -----------------BASE----------------- */
+
 .logo {
     background: var(--bg-main);
     color: var(--text-primary);
@@ -540,3 +541,137 @@ body {
 .core-head { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px; }
 .core-bar { height: 6px; background: var(--border-color); border-radius: 3px; }
 .core-fill { height: 6px; background: var(--accent-cpu); border-radius: 3px; }
+
+/* -----------------PROCESSES MODAL----------------- */
+
+.processes-modal {
+    background: var(--info-bg);
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.pm-title {
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+}
+
+.pm-management ul {
+    list-style: none;
+    color: var(--text-primary);
+    margin: 15px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.priority-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    padding: 10px 14px;
+    border-radius: 10px;
+    margin-top: 5px;
+}
+
+.priority-control label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.priority-control input[type="number"] {
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    width: 75px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.priority-control input[type="number"]:focus {
+    border-color: var(--accent-ram);
+    box-shadow: 0 0 0 2px rgba(169, 85, 247, 0.15);
+}
+
+.priority-control select {
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-family: "Geist", sans-serif;
+    font-size: 13px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+
+.priority-control select:focus {
+    border-color: var(--accent-ram);
+}
+
+.priority-control select option {
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+}
+
+.btn-apply {
+    background: rgba(169, 85, 247, 0.15);
+    border: 1px solid rgba(169, 85, 247, 0.4);
+    color: var(--accent-ram);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.btn-apply:hover {
+    background: var(--accent-ram);
+    color: #ffffff;
+    box-shadow: 0 0 12px rgba(169, 85, 247, 0.3);
+}
+
+.btn-apply:active {
+    transform: scale(0.97);
+}
+
+body.light-theme .priority-control {
+    background: rgba(15, 23, 42, 0.02);
+}
+
+body.light-theme .priority-control input[type="number"],
+body.light-theme .priority-control select {
+    background-color: #ffffff;
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+body.light-theme .priority-control select option {
+    background-color: #ffffff;
+}
+
+body.light-theme .btn-apply {
+    background: rgba(124, 58, 237, 0.1);
+    border-color: rgba(124, 58, 237, 0.3);
+    color: var(--accent-ram);
+}
+
+body.light-theme .btn-apply:hover {
+    background: var(--accent-ram);
+    color: #ffffff;
+}

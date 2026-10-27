@@ -134,4 +134,60 @@
         </div>
     </div>
 
+    <div class="processes-modal">
+        <div class="pm-title">
+            <h3>PID: </h3>
+            <div class="pm-process-status">running</div>
+        </div>
+
+        <div class="pm-graphs stats-grid">
+            <div class="stat-card" id="cpu-card">
+                <span class="card-label">İşlemci (CPU)</span>
+                <div class="card-value" id="cpu-percent">%--</div>
+                <span class="card-sub" id="cpu-model">Yükleniyor...</span>
+                <svg viewBox="0 0 300 60" preserveAspectRatio="none" class="graph">
+                    <polyline id="cpu-line" fill="none" stroke="#38bdf8" stroke-width="2" vector-effect="non-scaling-stroke"/>
+                </svg>
+            </div>
+
+            <div class="stat-card" id="ram-card">
+                <span class="card-label">Bellek (RAM)</span>
+                <div class="card-value" id="ram-percent">%--</div>
+                <span class="card-sub" id="ram-usage">Yükleniyor...</span>
+                <svg viewBox="0 0 300 60" preserveAspectRatio="none" class="graph">
+                    <polyline id="cpu-line" fill="none" stroke="#a955f7" stroke-width="2" vector-effect="non-scaling-stroke"/>
+                </svg>
+            </div>
+        </div>
+
+        <div class="pm-management">
+            <ul>
+                <li>Süreci sakince kapat </li>
+                <li>TERM</li>
+            </ul>
+            <ul>
+                <li>Süreci zorla kapat </li>
+                <li>KILL</li>
+            </ul>
+            <ul>
+                <li>Süreci askıya al </li>
+                <li>STOP</li>
+            </ul>
+            <ul>
+                <li>Süreci devam ettir </li>
+                <li>CONT</li>
+            </ul>
+            <ul>
+                <li>Sürecin öncelik seviyesini ayarla </li>
+                <li>
+                    <div class="priority-control">
+                        <label for="nice-input">Öncelik (Nice):</label>
+                        <input type="number" id="nice-input" min="-20" max="19" value="0">
+                        <button type="button" class="btn-apply" onclick="changePriority(pid)">Uygula</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
 {% endblock %}

@@ -9,6 +9,7 @@ const cpuHistory = [];
 const ramHistory = [];
 const MAX_POINTS = 30;
 
+// grafikleri çizen fonksiyon
 function drawGraph(lineEl, history) {
     if (!lineEl) return;
     const step = 300 / (MAX_POINTS - 1);
@@ -23,6 +24,8 @@ if (cpuCard && corePanel) {
     cpuCard.addEventListener('click', () => corePanel.classList.toggle('open'));
 }
 
+// cpu modelini ve kullanım yüzdesini isteyen asyncron function
+// ram kapasitesini ve kullanım yüzdesini isteyen asyncron function
 async function updateSystemStats() {
     try {
         const response = await fetch('/api/stats');
@@ -68,6 +71,7 @@ async function updateSystemStats() {
     }   
 }
 
+// sunucu tarafından gelen veriyi alıp ekrana yazdıran asyncron function
 async function updateSystemInfo() {
     try {
         const response = await fetch('/api/system');
@@ -83,6 +87,8 @@ async function updateSystemInfo() {
     }
 }
 
+
+// fonksiyonların belli aralıklarla yenilenmesi, sürekli bir olay
 document.addEventListener('DOMContentLoaded', () => {
     updateSystemStats();
     updateSystemInfo();
@@ -90,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(updateSystemInfo, 60000);
 });
 
+// modal pop-up açma, pid ve isim özelliklerini alma
 function openModal(pid, name,) {
     if (titleElement) {
         titleElement.textContent = name;
@@ -108,6 +115,8 @@ function closeModal() {
     modalOverlay.classList.remove('active');
 }
 
+
+// modal pop-up dışa tıklanınca ve esc'ye basınca kapanması
 document.addEventListener('DOMContentLoaded', () => {
     if(modalOverlay) {
         modalOverlay.addEventListener('click', (event) => {
@@ -124,6 +133,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+
+// acık - koyu tema
 document.addEventListener('DOMContentLoaded', () => {
     const currentTheme = localStorage.getItem('theme');
 

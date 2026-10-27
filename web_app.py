@@ -4,10 +4,12 @@ import psutil, time
 
 app = Flask(__name__)
 
+# kullanım süresini saat ve dakika cinsinden gösteren fonksiyon
 def uptime_str():
     saniye = int(time.time() - psutil.boot_time())
     return f"{saniye // 3600}s {saniye % 3600 // 60}dk"
 
+# işletim sistemi bilgisini platform ile alan fonksiyon
 def get_os_info():
     sistem = platform.system()  
     if sistem == "Linux":
@@ -23,6 +25,7 @@ def get_os_info():
         return f"Windows {surum} (build {build})"
     return f"{sistem} {platform.release()}"
 
+# cpu modelini belirli dosyalardan alan fonksiyon
 def get_cpu_model():
     if platform.system() == "Windows":
         try:
@@ -53,8 +56,9 @@ def api_system():
         "uptime": uptime
     })
 
+# cpu'nun ve ram'in özelliklerini çeken route
 @app.route("/api/stats")
-def  api_cpu():
+def api_cpu():
     cpu_usage = psutil.cpu_percent(interval=None)
     cpu_model = get_cpu_model()
     core_count = psutil.cpu_count(logical=True)
