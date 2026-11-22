@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Performans Monitörü</title>
+    <title>Process Controller</title>
     <!-- Geist Fontu -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,12 +12,18 @@
 </head>
 <body>
     <header class="logo">
-        <a href="/"><h1>SİSTEM MONİTÖRÜ</h1></a>
+        <a href="/"><h1>PROCESS CONTROLLER</h1></a>
         <nav class="header-nav">
             <ul>
                 <li id="version"></li>
                 <li><a href="#">Hakkında</a></li>
-                <li><a href="{{ url_for('ayarlar') }}">Ayarlar</a></li>
+                <li class="theme-item">
+                    <span>Açık tema</span>
+                    <label class="switch" title="Açık / koyu tema">
+                        <input type="checkbox" id="theme-toggle">
+                        <span class="slider"></span>
+                    </label>
+                </li>
             </ul>
         </nav>
     </header>

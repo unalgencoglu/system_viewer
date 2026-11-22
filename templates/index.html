@@ -17,7 +17,7 @@
             <div class="card-value" id="ram-percent">%--</div>
             <span class="card-sub" id="ram-usage">Yükleniyor...</span>
             <svg viewBox="0 0 300 60" preserveAspectRatio="none" class="graph">
-                <polyline id="cpu-line" fill="none" stroke="#a955f7" stroke-width="2" vector-effect="non-scaling-stroke"/>
+                <polyline id="ram-line" fill="none" stroke="#a955f7" stroke-width="2" vector-effect="non-scaling-stroke"/>
             </svg>
         </div>
         <div class="core-panel" id="core-panel"></div>
@@ -25,110 +25,114 @@
 
     <div class="table-container">
         <div class="table-header">
-            <h3>Çalışan Süreçler (Processes)</h3>
+            <h3>Çalışan Süreçler (Processes) <span class="process-count" id="process-count"></span></h3>
+            <input type="search" class="search-input" id="process-search" placeholder="PID, isim veya kullanıcı ara...">
         </div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>PID</th>
-                    <th>İSİM / SÜREÇ</th>
-                    <th>CPU %</th>
-                    <th>RAM %</th>
-                </tr>
-            </thead>
-            <tbody id="process-table-body">
-                <tr>
-                    <td>854</td>
-                    <td>
-                        <span class="process-name" onclick="openModal(854, 'python3')">python3</span>
-                    </td>
-                    <td>%3.1</td>
-                    <td>%1.8</td>
-                </tr>
-                <tr>
-                    <td>1042</td>
-                    <td>
-                        <span class="process-name" onclick="openModal(1042, 'firefox')">firefox</span>
-                    </td>
-                    <td>%12.4</td>
-                    <td>%4.2</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="table-scroll">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="sortable" data-key="pid">PID</th>
+                        <th class="sortable" data-key="name">İSİM / SÜREÇ</th>
+                        <th class="sortable" data-key="user">KULLANICI</th>
+                        <th class="sortable" data-key="state">DURUM</th>
+                        <th class="sortable" data-key="cpu">CPU %</th>
+                        <th class="sortable" data-key="mem">RAM %</th>
+                        <th class="sortable" data-key="open_files">AÇIK DOSYA</th>
+                    </tr>
+                </thead>
+                <tbody id="process-table-body">
+                    <tr><td colspan="7" class="empty-row">Yükleniyor...</td></tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div class="modal-overlay" id="process-modal">
         <div class="modal">
             <div class="modal-header">
                 <div class="modal-title-group">
-                    <h2 id="modal-process-title">python3</h2>
-                    <span class="pid-tag" id="modal-process-pid">PID: 854</span>
+                    <h2 id="modal-process-title">-</h2>
+                    <span class="pid-tag" id="modal-process-pid">PID: -</span>
                 </div>
                 <div class="modal-header-actions">
-                    <span class="badge running" id="modal-process-status">running</span>
+                    <span class="badge" id="modal-process-status">-</span>
                     <button class="modal-close-btn" onclick="closeModal()">&times;</button>
                 </div>
+            </div>
+
+            <div class="controls-section">
+                <div class="control-buttons">
+                    <button class="ctrl-btn" data-action="suspend">Duraklat</button>
+                    <button class="ctrl-btn" data-action="resume">Devam Ettir</button>
+                    <button class="ctrl-btn warn" data-action="terminate">Sonlandır</button>
+                    <button class="ctrl-btn danger" data-action="kill">Zorla Kapat</button>
+                </div>
+                <div class="nice-control">
+                    <label for="nice-input">Öncelik (nice)</label>
+                    <input type="number" id="nice-input" min="-20" max="19" step="1">
+                    <button class="ctrl-btn" data-action="nice">Uygula</button>
+                </div>
+                <div class="control-message" id="control-message"></div>
             </div>
 
             <div class="info-grid">
                 <div class="info-item full-width">
                     <span class="info-label">Dosya Yolu</span>
-                    <span class="info-value" id="modal-exe">/usr/bin/python3</span>
+                    <span class="info-value" id="modal-exe">-</span>
+                </div>
+                <div class="info-item full-width">
+                    <span class="info-label">Komut</span>
+                    <span class="info-value" id="modal-cmdline">-</span>
                 </div>
                 <div class="info-item">
                     <span class="info-label">Kullanıcı</span>
-                    <span class="info-value" id="modal-user">kali</span>
+                    <span class="info-value" id="modal-user">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Ebeveyn PID (PPID)</span>
+                    <span class="info-value" id="modal-ppid">-</span>
                 </div>
                 <div class="info-item">
                     <span class="info-label">Öncelik Seviyesi (Nice)</span>
-                    <span class="info-value" id="modal-nice">0</span>
+                    <span class="info-value" id="modal-nice">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">CPU</span>
+                    <span class="info-value" id="modal-cpu">-</span>
                 </div>
                 <div class="info-item full-width">
-                    <span class="info-label">Başlatma Süresi</span>
-                    <span class="info-value" id="modal-uptime">17 Ekim 2026, 14:22:10 (1 saat 15 dk aktif)</span>
+                    <span class="info-label">Başlatma Zamanı</span>
+                    <span class="info-value" id="modal-uptime">-</span>
                 </div>
             </div>
 
             <div class="metrics-grid">
                 <div class="metric-box">
                     <span class="metric-title">Threads</span>
-                    <span class="metric-num" id="modal-threads">34</span>
+                    <span class="metric-num" id="modal-threads">-</span>
                 </div>
                 <div class="metric-box">
                     <span class="metric-title">Fiziksel RAM (RSS)</span>
-                    <span class="metric-num" id="modal-rss">342.5 MB</span>
+                    <span class="metric-num" id="modal-rss">-</span>
                 </div>
                 <div class="metric-box">
                     <span class="metric-title">Sanal Bellek (VMS)</span>
-                    <span class="metric-num" id="modal-vms">1.8 GB</span>
+                    <span class="metric-num" id="modal-vms">-</span>
                 </div>
             </div>
 
             <div class="connections-section">
-                <h4>Ağ Bağlantıları & Portlar</h4>
+                <h4>Açık Dosyalar (<span id="modal-file-count">-</span>)</h4>
                 <table class="sub-table">
                     <thead>
                         <tr>
-                            <th>Protokol</th>
-                            <th>Yerel Adres</th>
-                            <th>Dış Adres</th>
-                            <th>Durum</th>
+                            <th>FD</th>
+                            <th>Tür</th>
+                            <th>Hedef</th>
                         </tr>
                     </thead>
-                    <tbody id="modal-connections-body">
-                        <tr>
-                            <td>TCP</td>
-                            <td>127.0.0.1:5000</td>
-                            <td>0.0.0.0:*</td>
-                            <td><span class="status-listen">LISTEN</span></td>
-                        </tr>
-                        <tr>
-                            <td>TCP</td>
-                            <td>192.168.1.34:54322</td>
-                            <td>142.250.185.206:443</td>
-                            <td><span class="status-established">ESTABLISHED</span></td>
-                        </tr>
-                    </tbody>
+                    <tbody id="modal-files-body"></tbody>
                 </table>
             </div>
         </div>
